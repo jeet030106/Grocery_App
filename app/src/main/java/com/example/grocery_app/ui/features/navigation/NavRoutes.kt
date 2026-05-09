@@ -11,4 +11,7 @@ sealed interface NavRoutes{
 
     @Serializable
     object Home : NavRoutes
+
+    @Serializable
+    object Cart : NavRoutes
 }

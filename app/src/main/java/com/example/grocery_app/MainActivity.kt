@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.grocery_app.ui.features.cart.CartScreen
 import com.example.grocery_app.ui.features.home.HomeScreen
 import com.example.grocery_app.ui.features.login.LoginScreen
 import com.example.grocery_app.ui.features.navigation.NavRoutes
@@ -50,7 +51,20 @@ class MainActivity : ComponentActivity() {
                         }
                         composable<NavRoutes.Home> {
                             HomeScreen(
-                                onNavigateToCart = {}
+                                onNavigateToCart = {
+                                    navController.navigate(NavRoutes.Cart) {
+                                        popUpTo(NavRoutes.Home) {
+                                            inclusive = true
+                                        }
+                                    }
+                                }
+                            )
+                        }
+
+                        composable<NavRoutes.Cart> {
+                            CartScreen(
+                                onNavigateBack = {navController.popBackStack()},
+                                onNavigateToCheckout ={}
                             )
                         }
 
