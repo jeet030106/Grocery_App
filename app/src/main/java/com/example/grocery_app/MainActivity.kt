@@ -37,7 +37,6 @@ class MainActivity : ComponentActivity() {
                         startDestination = NavRoutes.Login
                     ) {
 
-                        // Login Route
                         composable<NavRoutes.Login> {
                             LoginScreen(
                                 onNavigateToHome = {
@@ -49,10 +48,10 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
-
-                        // Home Route
                         composable<NavRoutes.Home> {
-                            HomeScreen()
+                            HomeScreen(
+                                onNavigateToCart = {}
+                            )
                         }
 
                     }
