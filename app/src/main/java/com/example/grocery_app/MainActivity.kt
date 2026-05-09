@@ -16,6 +16,7 @@ import com.example.grocery_app.ui.features.cart.CartScreen
 import com.example.grocery_app.ui.features.home.HomeScreen
 import com.example.grocery_app.ui.features.login.LoginScreen
 import com.example.grocery_app.ui.features.navigation.NavRoutes
+import com.example.grocery_app.ui.features.payment.PaymentScreen
 import com.example.grocery_app.ui.theme.Grocery_AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,11 +53,7 @@ class MainActivity : ComponentActivity() {
                         composable<NavRoutes.Home> {
                             HomeScreen(
                                 onNavigateToCart = {
-                                    navController.navigate(NavRoutes.Cart) {
-                                        popUpTo(NavRoutes.Home) {
-                                            inclusive = true
-                                        }
-                                    }
+                                    navController.navigate(NavRoutes.Cart)
                                 }
                             )
                         }
@@ -64,10 +61,18 @@ class MainActivity : ComponentActivity() {
                         composable<NavRoutes.Cart> {
                             CartScreen(
                                 onNavigateBack = {navController.popBackStack()},
-                                onNavigateToCheckout ={}
+                                onNavigateToCheckout ={
+                                    navController.navigate(NavRoutes.Payment)
+                                }
                             )
                         }
 
+                        composable<NavRoutes.Payment> {
+                            PaymentScreen(
+                                onNavigateBack = {navController.popBackStack()},
+                                onPaymentSuccessful = {navController.navigate(NavRoutes.Home)}
+                            )
+                        }
                     }
                 }
             }

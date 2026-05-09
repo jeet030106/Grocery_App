@@ -14,4 +14,7 @@ sealed interface NavRoutes{
 
     @Serializable
     object Cart : NavRoutes
+
+    @Serializable
+    object Payment : NavRoutes
 }
