@@ -27,4 +27,7 @@ interface OrderDao {
 
     @Query("SELECT * FROM orders WHERE status = :status ORDER BY timestamp DESC")
     fun getOrdersByStatus(status: String): Flow<List<OrderEntity>>
+
+    @Query("UPDATE orders SET status = 'DELIVERED' WHERE orderId = :orderId")
+    suspend fun markOrderAsDelivered(orderId: String)
 }
