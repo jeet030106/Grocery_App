@@ -1,0 +1,14 @@
+package com.example.grocery_app.ui.features.navigation
+
+import kotlinx.serialization.Serializable
+
+
+@Serializable
+sealed interface NavRoutes{
+
+    @Serializable
+    object Login : NavRoutes
+
+    @Serializable
+    object Home : NavRoutes
+}
