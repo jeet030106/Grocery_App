@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.grocery_app.ui.theme.Primary
 
 @Composable
 fun LoginScreen(
@@ -51,7 +52,7 @@ fun LoginScreen(
                 text = "FreshX Grocery",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary,
+                color = Primary,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
@@ -151,7 +152,7 @@ fun LoginScreen(
                         shape = RoundedCornerShape(12.dp),
                         enabled = !uiState.isLoading,
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary
+                            containerColor = Primary
                         )
                     ) {
                         if (uiState.isLoading) {
