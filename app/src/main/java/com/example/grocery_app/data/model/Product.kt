@@ -5,6 +5,6 @@ data class Product(
     val categoryId: Int,
     val name: String,
     val price: Double,
-    val unit: String, // e.g., "1 kg", "500 g", "1 Dozen"
+    val unit: String,
     val imageUrl: String
 )
