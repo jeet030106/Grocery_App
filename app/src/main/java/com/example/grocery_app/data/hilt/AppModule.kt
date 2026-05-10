@@ -2,6 +2,7 @@ package com.example.grocery_app.data.hilt
 
 
 import android.content.Context
+import com.example.grocery_app.data.data_store.UserPreferences
 import com.example.grocery_app.data.remote.CartRepository
 import com.example.grocery_app.data.remote.OrderRepository
 import com.example.grocery_app.data.remote.ProductRepository
@@ -52,5 +53,11 @@ object AppModule {
     @Singleton
     fun provideOrderRepository(orderDao: OrderDao): OrderRepository {
         return OrderRepository(orderDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserPreferences(@ApplicationContext context: Context): UserPreferences {
+        return UserPreferences(context)
     }
 }

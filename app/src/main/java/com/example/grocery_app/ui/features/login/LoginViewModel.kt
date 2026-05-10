@@ -2,6 +2,7 @@ package com.example.grocery_app.ui.features.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.grocery_app.data.data_store.UserPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +22,7 @@ data class LoginUiState(
 )
 
 @HiltViewModel
-class LoginViewModel @Inject constructor() : ViewModel() {
+class LoginViewModel @Inject constructor(private val userPreferences: UserPreferences) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
@@ -57,6 +58,7 @@ class LoginViewModel @Inject constructor() : ViewModel() {
             delay(1000)
 
             if (_uiState.value.otp == "1234") {
+                userPreferences.saveLoginState(true)
                 _uiState.update { it.copy(isLoading = false, isLoginSuccessful = true) }
             } else {
                 _uiState.update {
