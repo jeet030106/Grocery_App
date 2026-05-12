@@ -1,7 +1,6 @@
 package com.example.grocery_app.ui.features.home
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -23,13 +22,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage // <-- ADD THIS IMPORT
 import com.example.grocery_app.data.model.Category
 import com.example.grocery_app.data.model.Product
 import com.example.grocery_app.data.room.CartItem
@@ -40,8 +40,8 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     onNavigateToCart: () -> Unit
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-    val cartItems by viewModel.cartItems.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val cartItems by viewModel.cartItems.collectAsStateWithLifecycle()
     val totalCartItems = cartItems.sumOf { it.quantity }
 
     Scaffold(
@@ -216,8 +216,9 @@ fun ProductCard(
         Column(
             modifier = Modifier.padding(12.dp)
         ) {
-            Image(
-                painter = painterResource(id = android.R.drawable.ic_menu_gallery),
+            // --- THE FIX IS HERE ---
+            AsyncImage(
+                model = product.imageUrl, // Replace 'imageUrl' with whatever your property is named in the Product data class
                 contentDescription = product.name,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -278,7 +279,9 @@ fun ProductCard(
                         text = "—",
                         fontSize = 18.sp,
                         color = Primary,
-                        modifier = Modifier.clickable { onUpdateQuantity(cartItem.quantity - 1) }.padding(4.dp)
+                        modifier = Modifier
+                            .clickable { onUpdateQuantity(cartItem.quantity - 1) }
+                            .padding(4.dp)
                     )
 
                     Text(
@@ -291,7 +294,9 @@ fun ProductCard(
                         imageVector = Icons.Default.Add,
                         contentDescription = "Increase",
                         tint = Primary,
-                        modifier = Modifier.clickable { onUpdateQuantity(cartItem.quantity + 1) }.padding(4.dp)
+                        modifier = Modifier
+                            .clickable { onUpdateQuantity(cartItem.quantity + 1) }
+                            .padding(4.dp)
                     )
                 }
             }

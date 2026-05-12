@@ -98,7 +98,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    // Database Calls
     fun addToCart(product: Product) {
         viewModelScope.launch {
             val cartItem = CartItem(

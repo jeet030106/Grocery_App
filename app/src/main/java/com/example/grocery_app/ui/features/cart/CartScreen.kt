@@ -1,11 +1,9 @@
 package com.example.grocery_app.ui.features.cart
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -24,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage // <-- ADDED COIL IMPORT
 import com.example.grocery_app.data.room.CartItem
 import com.example.grocery_app.ui.theme.Primary
 
@@ -151,8 +150,9 @@ fun CartItemRow(item: CartItem, onUpdateQuantity: (Int) -> Unit) {
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            painter = painterResource(id = android.R.drawable.ic_menu_gallery),
+        // --- CHANGED TO ASYNCIMAGE ---
+        AsyncImage(
+            model = item.imageUrl, // Make sure your CartItem entity has an imageUrl property!
             contentDescription = item.name,
             modifier = Modifier
                 .size(60.dp)

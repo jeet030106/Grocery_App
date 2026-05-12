@@ -17,7 +17,7 @@ class OrderRepository @Inject constructor(
     suspend fun placeOrder(order: OrderEntity) {
         orderDao.insertOrder(order)
         CoroutineScope(Dispatchers.IO).launch{
-            delay(60000)
+            delay(10000)
             orderDao.markOrderAsDelivered(order.orderId)
         }
     }
